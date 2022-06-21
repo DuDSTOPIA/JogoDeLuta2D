@@ -14,7 +14,7 @@ function retangularCollision({ rectangle1, rectangle2 }) {
     )
 }
 
-// determina o ganhador mediante a condição
+// determina o ganhador mediante a uma condição
 function determineWinner ({player, enemy, timerId}) {
     clearTimeout(timerId)
     document.querySelector('#displayText').style.display = 'flex'
