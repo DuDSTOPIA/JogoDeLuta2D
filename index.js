@@ -42,6 +42,24 @@ const player = new Fighter({
     offset: {
         x: 0,
         y: 0
+    },
+    imgSrc: './samuraiJack/Idle.png',
+    framesMax: 8,
+    scale: 2.5,
+    offset: {
+        x: 215,
+        y: 157
+    },
+    sprites: {
+        idle: {
+            imgSrc: './samuraiJack/Idle.png',
+            framesMax: 8
+        },
+        run: {
+            imgSrc: './samuraiJack/Run.png',
+            framesMax: 8
+
+        }
     }
     
 });
@@ -94,18 +112,23 @@ function animate() {
     background.update();
     shop.update();
     player.update();
-    enemy.update();
+    //enemy.update();
     
     // velocidade padrao do personagem é zero ou seja parado
     player.velocity.x = 0;
     enemy.velocity.x = 0;
 
+
+    // Movimento do Player
     // se a key for pressionada ele vai soma ou subtrair fazendo o personagem andar
-    // player
+    player.image = player.sprites.idle.image
     if(keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5
+        //busca o sprite de correr
+        player.image = player.sprites.run.image
     } else if (keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
+        player.image = player.sprites.run.image
     }
     // Enemy
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
