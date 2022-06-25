@@ -43,6 +43,7 @@ const player = new Fighter({
         x: 0,
         y: 0
     },
+    // define sprite, frames, escala e posição inicial do player
     imgSrc: './samuraiJack/Idle.png',
     framesMax: 8,
     scale: 2.5,
@@ -59,8 +60,21 @@ const player = new Fighter({
             imgSrc: './samuraiJack/Run.png',
             framesMax: 8
 
+        },
+        jump: {
+            imgSrc: './samuraiJack/Jump.png',
+            framesMax: 2
+        },
+        fall: {
+            imgSrc: './samuraiJack/Fall.png',
+            framesMax: 2
+        },
+        attack1: {
+            imgSrc: './samuraiJack/Attack1.png',
+            framesMax: 6
         }
-    }
+    },
+    
     
 });
 
@@ -121,15 +135,28 @@ function animate() {
 
     // Movimento do Player
     // se a key for pressionada ele vai soma ou subtrair fazendo o personagem andar
-    player.image = player.sprites.idle.image
+    
     if(keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5
         //busca o sprite de correr
-        player.image = player.sprites.run.image
+        player.switchSprite('run')
     } else if (keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
-        player.image = player.sprites.run.image
+        player.switchSprite('run')
+    } else {
+        player.switchSprite('idle')
     }
+    
+    // Pulando
+    if(player.velocity.y < 0) {
+        player.switchSprite('jump')
+    }  else if (player.velocity.y > 0) {
+        player.switchSprite('fall')
+    }
+
+    
+
+
     // Enemy
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
         enemy.velocity.x = -5
