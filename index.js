@@ -93,7 +93,37 @@ const enemy = new Fighter({
     offset: {
         x: -50,
         y: 0
-    }
+    },
+    imgSrc: './kenji/Idle.png',
+    framesMax: 4,
+    scale: 2.5,
+    offset: {
+        x: 215,
+        y: 170
+    },
+    sprites: {
+        idle: {
+            imgSrc: './kenji/Idle.png',
+            framesMax: 4
+        },
+        run: {
+            imgSrc: './kenji/Run.png',
+            framesMax: 8
+
+        },
+        jump: {
+            imgSrc: './kenji/Jump.png',
+            framesMax: 2
+        },
+        fall: {
+            imgSrc: './kenji/Fall.png',
+            framesMax: 2
+        },
+        attack1: {
+            imgSrc: './kenji/Attack1.png',
+            framesMax: 4
+        }
+    },
 });
 // as keys que movimentam os personagem sempre tem o valor de false por padrao
 const keys = {
@@ -126,7 +156,7 @@ function animate() {
     background.update();
     shop.update();
     player.update();
-    //enemy.update();
+    enemy.update();
     
     // velocidade padrao do personagem é zero ou seja parado
     player.velocity.x = 0;
@@ -160,8 +190,19 @@ function animate() {
     // Enemy
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
         enemy.velocity.x = -5
+        enemy.switchSprite('run')
     } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
         enemy.velocity.x = 5
+        enemy.switchSprite('run')
+    } else {
+        enemy.switchSprite('idle')
+    }
+
+    // Pulando
+    if(enemy.velocity.y < 0) {
+        enemy.switchSprite('jump')
+    }  else if (enemy.velocity.y > 0) {
+        enemy.switchSprite('fall')
     }
 
     //detecta colisao
