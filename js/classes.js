@@ -14,7 +14,7 @@ class Sprite {
         this.image.src = imgSrc
         this.scale = scale
         this.framesMax = framesMax
-        this.frameCurrent = 0
+        this.framesCurrent = 0
         this.framesElapsed = 0
         this.framesHold = 5
         this.offset = offset
@@ -23,7 +23,7 @@ class Sprite {
     draw() {
         c.drawImage(
             this.image,
-            this.frameCurrent * (this.image.width / this.framesMax),
+            this.framesCurrent * (this.image.width / this.framesMax),
             0,
             this.image.width / this.framesMax,
             this.image.height,
@@ -38,10 +38,10 @@ class Sprite {
         this.framesElapsed++
 
         if (this.framesElapsed % this.framesHold === 0) {
-            if (this.frameCurrent < this.framesMax - 1) {
-                this.frameCurrent++
+            if (this.framesCurrent < this.framesMax - 1) {
+                this.framesCurrent++
             } else {
-                this.frameCurrent = 0
+                this.framesCurrent = 0
             }
         }
 
@@ -65,7 +65,8 @@ class Fighter extends Sprite {
         scale = 1,
         framesMax = 1,
         offset = { x: 0, y: 0 },
-        sprites
+        sprites,
+        attackBox = { offset: {}, width: undefined, height: undefined}
     }) {
         // super é a palavra chave que acessa os objetos da classe pai
         // dentro do super ficam as propriedades erdadas da classe pai
@@ -86,14 +87,14 @@ class Fighter extends Sprite {
                 x: this.position.x,
                 y: this.position.y
             },
-            offset,
-            width: 100,
-            height: 50
+            offset: attackBox.offset,
+            width: attackBox.width,
+            height: attackBox.height
         }
         this.color = color,
         this.isAttacking,
         this.health = 100
-        this.frameCurrent = 0
+        this.framesCurrent = 0
         this.framesElapsed = 0
         this.framesHold = 5,
         this.sprites = sprites
@@ -109,8 +110,16 @@ class Fighter extends Sprite {
         this.draw()
         this.animateFrame()
 
+        //Cria a caixa responsavel pela interação dos ataques
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
-        this.attackBox.position.y = this.position.y
+        this.attackBox.position.y = this.position.y + this.attackBox.offset.y
+
+        c.fillRect(
+            this.attackBox.position.x, 
+            this.attackBox.position.y, 
+            this.attackBox.width, 
+            this.attackBox.height
+        )
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
@@ -127,13 +136,10 @@ class Fighter extends Sprite {
     attack() {
         this.switchSprite('attack1')
         this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 100);
     }
 
     switchSprite (sprite) {
-        if( this.image === this.sprites.attack1.image && this.frameCurrent < this.sprites.attack1.framesMax -1) return
+        if( this.image === this.sprites.attack1.image && this.framesCurrent < this.sprites.attack1.framesMax -1) return
 
         switch (sprite) {
             case 'idle':

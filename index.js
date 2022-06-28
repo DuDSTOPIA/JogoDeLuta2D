@@ -74,7 +74,14 @@ const player = new Fighter({
             framesMax: 6
         }
     },
-    
+    attackBox: {
+        offset: {
+            x:100,
+            y:50
+        },
+        width:160,
+        height:50
+    }
     
 });
 
@@ -124,6 +131,14 @@ const enemy = new Fighter({
             framesMax: 4
         }
     },
+    attackBox: {
+        offset: {
+            x:0,
+            y:0
+        },
+        width:100,
+        height:50
+    }
 });
 // as keys que movimentam os personagem sempre tem o valor de false por padrao
 const keys = {
@@ -211,12 +226,19 @@ function animate() {
             rectangle1: player,
             rectangle2: enemy
         }) &&
-        player.isAttacking
-        ) {
+        player.isAttacking && 
+        player.framesCurrent === 4
+        
+    ) {
         player.isAttacking = false
         enemy.health -= 20
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
+    
+    if(player.isAttacking && player.framesCurrent === 4) {
+        player.isAttacking = false
+    }
+    
 
     if(
         retangularCollision({
