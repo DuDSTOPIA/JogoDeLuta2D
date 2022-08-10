@@ -3,7 +3,7 @@ const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
 canvas.width = 1024;
-canvas.height = 576;
+canvas.height = 410;
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -14,7 +14,7 @@ const background = new Sprite({
         x: 0,
         y: 0
     },
-    imgSrc: './img/background.png'
+    imgSrc: './img/background02.png'
 });
 
 const shop = new Sprite({
@@ -32,8 +32,8 @@ const shop = new Sprite({
 // cria o jogador definindo a posição e o personagem
 const player = new Fighter({
     position: {
-        x:0,
-        y:0
+        x:100,
+        y:165
     },
     velocity: {
         x:0,
@@ -98,8 +98,8 @@ const player = new Fighter({
 // cria o inimigo definindo posição e velocidade
 const enemy = new Fighter({
     position: {
-        x:400,
-        y:100
+        x:800,
+        y:165
     },
     velocity: {
         x:0,
@@ -145,6 +145,7 @@ const enemy = new Fighter({
         },
         death: {
             imgSrc: './kenji/Death.png',
+            framesMax: 7
         }
     },
     attackBox: {
@@ -171,7 +172,7 @@ const keys = {
     },
     ArrowRight: {
         pressed: false
-    },
+    }
 }
 
 decreaseTimer()
@@ -181,7 +182,7 @@ function animate() {
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height);
     background.update();
-    shop.update();
+    //shop.update();
     c.fillStyle = 'rgba(255,255,255, 0.15)'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update();
@@ -274,7 +275,7 @@ function animate() {
             width: player.health + '%'
         })
     }
-    // consição para errar
+    // condição para errar
     if(enemy.isAttacking && enemy.framesCurrent === 2) {
         enemy.isAttacking = false
     }
@@ -284,6 +285,24 @@ function animate() {
         determineWinner({player, enemy, timerId})
     }
 }
+
+function playerPula () {
+    if(player.velocity.y != 0) {
+        
+    } else if(player.velocity.y === 0 || keys.w.pressed === true){
+         return player.velocity.y = -20;
+    }
+}
+
+function enemyPula () {
+    if(enemy.velocity.y != 0) {
+        
+    } else if(enemy.velocity.y === 0 || keys.ArrowUp.pressed === true){
+        enemy.velocity.y = -20;
+    }    
+}
+
+ 
 
 animate()
 // Se as teclas forem pressionadas recebem o valor true
@@ -299,7 +318,7 @@ window.addEventListener('keydown', (event) => {
                 player.lastKey = 'a'
                 break
             case 'w':
-               player.velocity.y = -20;
+                playerPula()
                 break
             case ' ':
                 player.attack()
@@ -318,7 +337,7 @@ window.addEventListener('keydown', (event) => {
                 enemy.lastKey = 'ArrowLeft'
                 break
             case 'ArrowUp':
-                enemy.velocity.y = -20;
+                enemyPula()
                 break
             case 'ArrowDown':
                 enemy.attack()
@@ -337,6 +356,7 @@ window.addEventListener('keyup', (event) => {
         case 'a':
             keys.a.pressed = false;
             break
+        
     }
     //Inimigo
     switch(event.key) {
@@ -346,8 +366,6 @@ window.addEventListener('keyup', (event) => {
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = false;
             break
-        case 'ArrowUp':
-            keys.ArrowUp.pressed = false;
-            break
+        
     }
 })

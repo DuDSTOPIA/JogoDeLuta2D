@@ -113,22 +113,22 @@ class Fighter extends Sprite {
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y
         
-        // Desenha a caixa na tela
-        ///c.fillRect(
+         //Desenha a caixa na tela
+        //c.fillRect(
             //this.attackBox.position.x, 
             //this.attackBox.position.y, 
             //this.attackBox.width, 
-        //  this.attackBox.height
+          //this.attackBox.height
         //)
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
         // algoritmo da gravidade
-        if (this.position.y + this.height + this.velocity.y >= canvas.height - 96) {
+        if (this.position.y + this.height + this.velocity.y >= canvas.height - 30) {
             this.velocity.y = 0
             //posição exata do chao
-            this.position.y = 330
+            this.position.y = 250
         } else this.velocity.y += gravity;
     };
 
