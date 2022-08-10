@@ -1,0 +1,21 @@
+@import url("CSS/timer-textoDeTela.css");
+@import url("CSS/Health.css");
+
+:root {
+    --Background-page: #3c0274;
+    --Branco-padrao: white;
+    --Preto-timer-background: black;
+    --Vermelho-barra-saude: red;
+    --Roxo-barra-saude: #818cf8;
+}
+
+body {
+    background-color: var(--Background-page);
+    text-align: center;
+}
+
+/* Div do container vermelho */
+.container-background {
+    position: relative;
+    display: inline-block;
+}

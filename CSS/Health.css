@@ -1,0 +1,54 @@
+/*Area da barra de saude e timer*/
+.health_timer_area {
+    position: absolute;
+    width: 100%; 
+    align-items: center;
+    padding: 20px;
+    display: flex; 
+}
+
+/*Caixa de fundo da barra de energia do jogador*/
+.player_health_background {
+    position: relative;
+    height:30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/*Barra vermelha de saude do jogador*/
+.player_red_blood_bar {
+    background-color: var(--Vermelho-barra-saude); height: 30px; width: 100%;
+}
+
+/* Barra roxa de saude do jogador */
+#playerHealth {
+    position: absolute; 
+    background: var(--Roxo-barra-saude); 
+    right: 0; 
+    top: 0; 
+    width: 100%;
+    bottom: 0; 
+}
+/* Caixa de fundo da barra de energia do inimigo */
+.enemy_health_background {
+    position: relative;
+    height:30px;
+    width: 100%;
+    border-top: 1px solid var(--Branco-padrao);
+    border-bottom: 1px solid var(--Branco-padrao) ;
+}
+
+/* Barra vermelha de saude do inimigo */
+.enemy_red_blood_bar {
+    background-color: var(--Vermelho-barra-saude); height: 30px;
+}
+/* Barra roxa de saude do inimigo */
+#enemyHealth {
+    position: absolute; 
+    background: var(--Roxo-barra-saude); 
+    top: 0; 
+    right: 0; 
+    bottom: 0; 
+    left: 0;
+}
